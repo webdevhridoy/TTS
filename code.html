@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;family=Plus+Jakarta+Sans:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "inverse-surface": "#dae2fd",
+                    "inverse-primary": "#5654a8",
+                    "surface": "#0b1326",
+                    "surface-container": "#171f33",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "primary": "#c3c0ff",
+                    "on-error-container": "#ffdad6",
+                    "primary-fixed": "#e2dfff",
+                    "on-primary-fixed": "#100563",
+                    "outline": "#8f9097",
+                    "background": "#0b1326",
+                    "surface-container-lowest": "#060e20",
+                    "outline-variant": "#45474c",
+                    "error-container": "#93000a",
+                    "surface-container-low": "#131b2e",
+                    "error": "#ffb4ab",
+                    "on-background": "#dae2fd",
+                    "on-tertiary-container": "#c88000",
+                    "on-surface-variant": "#c5c6cd",
+                    "on-secondary-container": "#003f38",
+                    "tertiary-container": "#3c2300",
+                    "on-primary": "#272377",
+                    "on-tertiary-fixed": "#2a1700",
+                    "tertiary-fixed": "#ffddb8",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "secondary": "#4fdbc8",
+                    "surface-tint": "#c3c0ff",
+                    "tertiary": "#ffb95f",
+                    "on-secondary-fixed-variant": "#005048",
+                    "inverse-on-surface": "#283044",
+                    "secondary-container": "#04b4a2",
+                    "on-error": "#690005",
+                    "surface-container-high": "#222a3d",
+                    "on-secondary": "#003731",
+                    "secondary-fixed": "#71f8e4",
+                    "on-surface": "#dae2fd",
+                    "on-tertiary": "#472a00",
+                    "on-secondary-fixed": "#00201c",
+                    "surface-variant": "#2d3449",
+                    "surface-container-highest": "#2d3449",
+                    "surface-dim": "#0b1326",
+                    "on-primary-fixed-variant": "#3e3c8f",
+                    "primary-container": "#1f1a6f",
+                    "on-primary-container": "#8887de",
+                    "secondary-fixed-dim": "#4fdbc8",
+                    "surface-bright": "#31394d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope", "IBM Plex Sans Arabic"],
+                    "body": ["Inter", "IBM Plex Sans Arabic"],
+                    "label": ["Plus Jakarta Sans", "IBM Plex Sans Arabic"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+        }
+        .sonic-glow {
+            background: radial-gradient(circle at center, rgba(79, 219, 200, 0.15) 0%, transparent 70%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-secondary/30">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#0b1326]/60 backdrop-blur-xl shadow-[0px_24px_48px_-12px_rgba(0,0,0,0.06)]">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 h-20 rtl:flex-row-reverse">
+<div class="flex items-center gap-10">
+<span class="text-2xl font-bold bg-gradient-to-r from-[#c3c0ff] to-[#4fdbc8] bg-clip-text text-transparent font-['Manrope'] tracking-tight">Sawti</span>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-[#4fdbc8] font-semibold border-b-2 border-[#4fdbc8] font-['Manrope'] tracking-tight py-1" href="#">Voices</a>
+<a class="text-slate-400 hover:text-white transition-colors font-['Manrope'] tracking-tight py-1" href="#">Technology</a>
+<a class="text-slate-400 hover:text-white transition-colors font-['Manrope'] tracking-tight py-1" href="#">Pricing</a>
+<a class="text-slate-400 hover:text-white transition-colors font-['Manrope'] tracking-tight py-1" href="#">API</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-slate-400 hover:text-white transition-all">language</button>
+<button class="px-5 py-2 text-slate-400 hover:text-white transition-colors font-medium">Login</button>
+<button class="px-6 py-2 bg-gradient-to-r from-[#c3c0ff] to-[#1f1a6f] text-on-primary rounded-full font-bold hover:scale-95 active:scale-90 transition-all">Get Started</button>
+</div>
+</div>
+</nav>
+<main class="pt-32">
+<!-- Hero Section -->
+<section class="relative max-w-7xl mx-auto px-6 mb-32">
+<div class="absolute -top-24 right-0 w-[500px] h-[500px] sonic-glow opacity-50 pointer-events-none"></div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="text-right">
+<h1 class="text-5xl md:text-7xl font-bold leading-[1.1] mb-8 text-on-surface font-headline tracking-tight">
+                        حول نصوصك إلى أصوات <br/>
+<span class="text-secondary">طبيعية</span> في ثوانٍ
+                    </h1>
+<p class="text-xl md:text-2xl text-on-surface-variant leading-relaxed mb-12 max-w-2xl">
+                        المنصة الأولى المتخصصة في تحويل النص إلى كلام باللغة العربية بجودة احترافية، مدعومة بأحدث تقنيات الذكاء الاصطناعي الصوتي.
+                    </p>
+<div class="flex gap-4 justify-start">
+<button class="px-8 py-4 bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-full text-lg font-bold hover:shadow-lg hover:shadow-primary/20 transition-all">ابدأ التجربة مجاناً</button>
+<button class="px-8 py-4 bg-surface-container-high text-on-surface rounded-full text-lg font-semibold hover:bg-surface-bright transition-all">شاهد العرض المباشر</button>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute inset-0 bg-secondary/10 blur-3xl rounded-full scale-75 transition-transform group-hover:scale-90"></div>
+<img class="relative z-10 w-full h-auto object-cover rounded-full aspect-square border border-white/5 p-4 bg-surface-container/30 backdrop-blur-sm" data-alt="abstract 3d sound waves flowing in a dark space with teal and violet glowing lights and sleek metallic textures" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDW1sLA1HFajlXqY9e6tg-7fepuG2cjvqQm0FqNXL0TvaDnTOacAEozhwqEOi4kJeSF0WqXZA9VraFuBF5g4sKet5atQ79jBw5-I26xDVngzYF67bftEnkUltSOwetePvxD-bk1CJqOTRh13TzKMXXP5HVyZ3dZZdaOf0yyQ7l5CRl-9_sJIgYE8Vj6amfpxhnlZtJPvZw2cXetFOYcRkpeGrin-aF_U2o45tfY6q39J4O4SE-Nr170cx0DIC_1JnGWQNDiqbUNBLVr"/>
+</div>
+</div>
+</section>
+<!-- Voice Playground -->
+<section class="max-w-5xl mx-auto px-6 mb-40">
+<div class="bg-surface-container-low rounded-full p-8 md:p-12 relative overflow-hidden border border-white/5">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-secondary/0 via-secondary/40 to-secondary/0"></div>
+<div class="flex flex-col gap-8">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="w-3 h-3 bg-secondary rounded-full animate-pulse"></span>
+<h2 class="text-xl font-bold font-headline">جرب "صوتي" الآن</h2>
+</div>
+<div class="flex gap-4">
+<select class="bg-surface-container-high text-on-surface border-none rounded-full px-6 py-2 font-label focus:ring-2 focus:ring-secondary/50">
+<option>صوت علي (ذكر)</option>
+<option>صوت مايا (أنثى)</option>
+<option>صوت عمر (ذكر - رسمي)</option>
+</select>
+</div>
+</div>
+<textarea class="w-full h-48 bg-surface-container-highest text-on-surface border-none rounded-full p-8 text-xl focus:ring-2 focus:ring-secondary/20 placeholder:text-slate-600 resize-none" dir="rtl" placeholder="أدخل النص العربي الذي تريد تحويله هنا..."></textarea>
+<div class="flex justify-between items-center">
+<div class="flex gap-6">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined">speed</span>
+<span class="font-label">سرعة الصوت: 1.0x</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined">control_point</span>
+<span class="font-label">نبرة الصوت: متوسطة</span>
+</div>
+</div>
+<button class="px-10 py-4 bg-secondary text-on-secondary-container rounded-full font-bold text-lg hover:scale-105 transition-transform flex items-center gap-3">
+                            توليد الصوت
+                            <span class="material-symbols-outlined">play_circle</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="max-w-7xl mx-auto px-6 mb-40">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold mb-4 font-headline">مميزات المنصة</h2>
+<p class="text-on-surface-variant max-w-xl mx-auto">نجمع بين دقة المعالجة اللغوية وجمال النطق البشري في نظام واحد متكامل.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[600px]">
+<!-- Large Feature -->
+<div class="md:col-span-8 bg-surface-container rounded-full p-10 flex flex-col justify-between group overflow-hidden relative">
+<img class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-30 transition-opacity" data-alt="close up portraits of diverse people in a high-tech photography style with blue and teal studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGed5eLt0ivgArpaFft2WPeGFhHbhgKS09q2pk84kipwhUIDbcwXOXfBoGC7_OgdgmjwIN_5pRC_yyUC3vABAZnkUWUqbBfmcqhLQeYPPe4ryqHFAn1RyteC9LngBF8OmVBA41ZPuDvutFsUJN0kOqdKn7WAiuuFmRGn39sYL3savSqeU9pTxaxL-dIgMipZw5tbUI47W9cNN38GUUR0kijnmmuRudeMwV1EsPsDwNOK5TCwSpP3zuEGdDvegbus8Wue6Fbfs44-IP"/>
+<div class="relative z-10">
+<span class="px-4 py-1 bg-secondary/10 text-secondary rounded-full text-xs font-bold mb-4 inline-block">الأصوات</span>
+<h3 class="text-3xl font-bold mb-4">أصوات عربية طبيعية</h3>
+<p class="text-on-surface-variant max-w-sm">اختر من بين تشكيلة متنوعة: (علي، مايا، عمر) مصممة لتناسب مختلف أنواع المحتوى من البودكاست إلى الأخبار.</p>
+</div>
+<div class="relative z-10 flex gap-4 mt-8">
+<div class="w-12 h-12 rounded-full bg-surface-bright flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-weight="fill">mic</span>
+</div>
+<div class="w-12 h-12 rounded-full bg-surface-bright flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-weight="fill">graphic_eq</span>
+</div>
+</div>
+</div>
+<!-- Small Feature -->
+<div class="md:col-span-4 bg-surface-container-high rounded-full p-10 flex flex-col gap-4 border border-white/5">
+<div class="w-14 h-14 bg-tertiary/10 text-tertiary rounded-full flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-3xl">download</span>
+</div>
+<h3 class="text-2xl font-bold">تحميل فوري</h3>
+<p class="text-on-surface-variant">قم بتحميل ملفاتك الصوتية بجودة عالية بصيغة MP3 أو WAV بضغطة زر واحدة بعد المعالجة.</p>
+</div>
+<!-- Row 2 -->
+<div class="md:col-span-4 bg-surface-container-high rounded-full p-10 flex flex-col gap-4 border border-white/5">
+<div class="w-14 h-14 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-3xl">analytics</span>
+</div>
+<h3 class="text-2xl font-bold">تتبع الاستخدام</h3>
+<p class="text-on-surface-variant">لوحة تحكم ذكية تتيح لك مراقبة استهلاك الحروف والملفات المنتجة بشكل حي ودقيق.</p>
+</div>
+<div class="md:col-span-8 bg-gradient-to-br from-surface-container to-surface-container-highest rounded-full p-10 flex items-center justify-between border border-white/5 group">
+<div class="max-w-md">
+<span class="px-4 py-1 bg-tertiary/10 text-tertiary rounded-full text-xs font-bold mb-4 inline-block">قريباً</span>
+<h3 class="text-3xl font-bold mb-4">من مقال إلى بودكاست</h3>
+<p class="text-on-surface-variant">أداة ذكية لسحب محتوى المقالات وتحويلها تلقائياً إلى ملفات صوتية جاهزة للنشر.</p>
+</div>
+<div class="hidden md:block w-32 h-32 material-symbols-outlined text-8xl text-surface-bright group-hover:text-tertiary/20 transition-colors">newspaper</div>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="max-w-6xl mx-auto px-6 mb-40">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold mb-4 font-headline">خطط الأسعار</h2>
+<p class="text-on-surface-variant">اختر الخطة المناسبة لاحتياجاتك، ابدأ مجاناً وطور مشروعك لاحقاً.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+<!-- Free Plan -->
+<div class="bg-surface-container-low rounded-full p-12 border border-white/5 hover:border-secondary/20 transition-colors">
+<div class="mb-8">
+<h3 class="text-2xl font-bold mb-2">الخطة المجانية</h3>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-bold">0</span>
+<span class="text-on-surface-variant">$/شهرياً</span>
+</div>
+</div>
+<ul class="space-y-4 mb-12">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-sm">check_circle</span>
+<span>5000 حرف شهرياً</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-sm">check_circle</span>
+<span>الوصول لصوت "علي" و "مايا"</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-sm">check_circle</span>
+<span>تحميل بصيغة MP3</span>
+</li>
+</ul>
+<button class="w-full py-4 bg-surface-container-highest text-on-surface rounded-full font-bold hover:bg-surface-bright transition-all">سجل الآن</button>
+</div>
+<!-- Pro Plan -->
+<div class="bg-surface-container rounded-full p-12 border-2 border-primary relative overflow-hidden">
+<div class="absolute top-0 right-0 bg-primary text-on-primary px-8 py-1 rounded-bl-full text-xs font-bold font-label">Private Beta</div>
+<div class="mb-8">
+<h3 class="text-2xl font-bold mb-2 text-primary">خطة المحترفين</h3>
+<div class="flex items-baseline gap-1">
+<span class="text-4xl font-bold">29</span>
+<span class="text-on-surface-variant">$/شهرياً</span>
+</div>
+</div>
+<ul class="space-y-4 mb-12">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-bold">أحرف غير محدودة</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span>جميع الأصوات الحالية والمستقبلية</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span>دعم فني مخصص 24/7</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span>الوصول لبرمجة API</span>
+</li>
+</ul>
+<button class="w-full py-4 bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-full font-bold hover:scale-[1.02] transition-all">طلب الانضمام للبيتا</button>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="max-w-7xl mx-auto px-6 mb-20">
+<div class="bg-secondary text-on-secondary-container rounded-full p-16 text-center relative overflow-hidden">
+<div class="absolute inset-0 opacity-10">
+<img class="w-full h-full object-cover" data-alt="minimalist geometric waveform pattern repetitive and clean for background texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg0W_avtqDrnAk8vJvPTCFMGKiQOKPZPiDCw1aIEnbgtIs3CGxa4Tqy5YEyUQDFeuO7l211NFOrVKC-NiGggckfxsz1AF0thzKRS2mnCX_E0tflYtIX3eZJEayEapPeKwMbQSyvNrWTPQPqTtwqFOPW2XCZHveV3lhFIKJAm9GAhSJlX1636bWM6cYjZLPzx5DGzat4sr1__PVNnFk2H9cH-j93wefF7d3rdtbcOAF1PBXUa74cAS5Gsmj3m9eZBcd5-LiTEsPwhSA"/>
+</div>
+<div class="relative z-10">
+<h2 class="text-4xl md:text-5xl font-bold mb-8 font-headline">جاهز لمنح نصوصك صوتاً احترافياً؟</h2>
+<p class="text-xl mb-12 max-w-2xl mx-auto opacity-80">انضم إلى مئات الكتاب والمسوقين الذين يستخدمون "صوتي" لإنشاء محتوى مسموع جذاب.</p>
+<button class="px-12 py-5 bg-on-secondary-container text-secondary rounded-full text-xl font-bold hover:shadow-2xl hover:bg-black transition-all">جرب مجاناً اليوم</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 mt-20 bg-[#0b1326] border-t border-white/5">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto px-6 rtl:text-right font-['IBM_Plex_Sans_Arabic'] text-sm leading-relaxed">
+<div class="flex flex-col gap-4">
+<span class="text-xl font-bold text-[#c3c0ff]">Sawti</span>
+<p class="text-slate-500">منصة تحويل النص إلى كلام باللغة العربية بجودة احترافية.</p>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="text-white font-bold mb-2">المنتج</h4>
+<a class="text-slate-500 hover:text-[#ffb95f] transition-colors" href="#">الأصوات</a>
+<a class="text-slate-500 hover:text-[#ffb95f] transition-colors" href="#">الأسعار</a>
+<a class="text-slate-500 hover:text-[#ffb95f] transition-colors" href="#">المقالات</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="text-white font-bold mb-2">الموارد</h4>
+<a class="text-slate-500 hover:text-[#ffb95f] transition-colors" href="#">Documentation</a>
+<a class="text-slate-500 hover:text-[#ffb95f] transition-colors" href="#">Support</a>
+<a class="text-slate-500 hover:text-[#ffb95f] transition-colors" href="#">API Reference</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="text-white font-bold mb-2">قانوني</h4>
+<a class="text-slate-500 hover:text-[#ffb95f] transition-colors" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-[#ffb95f] transition-colors" href="#">Terms of Service</a>
+<a class="text-slate-500 hover:text-[#ffb95f] transition-colors" href="#">Contact</a>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-white/5 text-center text-slate-500">
+            © 2024 Sawti. Resonant Professionalism.
+        </div>
+</footer>
+</body></html>

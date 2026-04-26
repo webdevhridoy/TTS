@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String            @id @default(cuid())
+  email            String            @unique
+  name             String?
+  createdAt        DateTime          @default(now())
+  
+  subscription     Subscription?
+  usageRecords     UsageRecord[]
+  generations      AudioGeneration[]
+}
+
+model Subscription {
+  id                   String   @id @default(cuid())
+  userId               String   @unique
+  user                 User     @relation(fields: [userId], references: [id])
+  stripeCustomerId     String?  @unique
+  stripeSubscriptionId String?  @unique
+  plan                 String   @default("free")
+  status               String   @default("active")
+  currentPeriodEnd     DateTime?
+  receiptUrl           String?
+  paidAt               DateTime?
+}
+
+model UsageRecord {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
+  charactersUsed Int
+  provider       String
+  createdAt      DateTime @default(now())
+}
+
+model AudioGeneration {
+  id               String   @id @default(cuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id])
+  
+  inputText        String
+  normalizedText   String
+  textHash         String
+
+  charactersCount  Int
+  voiceId          String
+  provider         String
+
+  audioUrl         String?
+  durationSeconds  Float?
+  generationTimeMs Int?
+  mimeType         String?
+  fileSizeBytes    Int?
+  errorMessage     String?
+
+  status           String   @default("pending")
+  createdAt        DateTime @default(now())
+}
+
+model Plan {
+  id             String   @id @default(cuid())
+  name           String
+  monthlyPrice   Float
+  characterLimit Int
+  active         Boolean  @default(true)
+}
+
+model StripeEvent {
+  id         String   @id
+  type       String
+  status     String   @default("processed")
+  planId     String?
+  amount     Float?
+  receiptUrl String?
+  createdAt  DateTime @default(now())
+}
