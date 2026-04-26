@@ -3,6 +3,8 @@ import { stripe } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
 import { PLANS, type PlanId } from "../route";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest) {
   const sessionId = req.nextUrl.searchParams.get("session_id");
 
