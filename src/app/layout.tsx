@@ -28,7 +28,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html
         lang="en"
-        className={`${inter.variable} ${cairo.variable} h-full antialiased dark`}
+        className={`${inter.variable} ${cairo.variable} h-full antialiased`}
         suppressHydrationWarning
       >
         <head>
@@ -38,7 +38,7 @@ export default function RootLayout({
         <body className="min-h-full flex flex-col font-cairo bg-background text-foreground" suppressHydrationWarning>
           <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >

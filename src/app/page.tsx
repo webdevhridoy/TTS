@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import useSWR from "swr";
@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { LangToggle } from "@/components/lang-toggle";
 import { translations, type Lang } from "@/lib/translations";
+import { VoiceGenerator } from "@/components/voice-generator";
 import {
   Mic, Download, Zap, Sparkles,
   Check, PlayCircle, Globe,
@@ -391,180 +392,10 @@ export default function HomePage() {
           </div>
 
           {/* Functional card */}
-          <div className="relative">
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 rounded-[2.5rem] blur-2xl opacity-60" />
-            <div className="relative bg-card border border-border shadow-2xl rounded-3xl p-8 md:p-10">
-
-              {/* Voice dropdown */}
-              <div className="relative mb-5" dir="ltr">
-                <button
-                  onClick={() => setVoiceOpen(o => !o)}
-                  className="flex items-center justify-between w-full px-4 py-3 rounded-xl border border-border bg-muted/50 text-foreground hover:border-primary/50 hover:bg-muted/80 transition-all duration-200"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className={`w-2 h-2 rounded-full ${
-                      VOICE_GENDER[selectedVoice] === "female" ? "bg-secondary" : VOICE_POPULAR[selectedVoice] ? "bg-primary" : "bg-accent"
-                    }`} />
-                    <span className="font-semibold text-sm">{voiceLabel[selectedVoice]}</span>
-                    <span className="text-xs text-muted-foreground">·</span>
-                    <span className="text-xs text-muted-foreground">{t.voices[selectedVoice].style}</span>
-                  </div>
-                  <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform duration-200 ${voiceOpen ? "rotate-180" : ""}`} />
-                </button>
-
-                {voiceOpen && (
-                  <div className="absolute top-full mt-2 start-0 end-0 bg-card border border-border rounded-2xl shadow-2xl z-30 overflow-hidden">
-                    <div className="p-1.5 max-h-72 overflow-y-auto">
-                      {VOICES.map(v => {
-                        const isFem = VOICE_GENDER[v] === "female";
-                        const isPop = VOICE_POPULAR[v];
-                        const isSelected = v === selectedVoice;
-                        const dotColor = isFem ? "bg-secondary" : isPop ? "bg-primary" : "bg-accent";
-                        return (
-                          <button
-                            key={v}
-                            onClick={() => { setVoice(v); setAudioUrl(null); setStatus("idle"); setVoiceOpen(false); }}
-                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all duration-150 ${
-                              isSelected ? "bg-primary/10 text-primary" : "hover:bg-muted/60 text-foreground"
-                            }`}
-                          >
-                            <div className={`w-2 h-2 rounded-full flex-shrink-0 ${isSelected ? "bg-primary" : dotColor}`} />
-                            <span className="font-semibold text-sm flex-shrink-0">{voiceLabel[v]}</span>
-                            <span className="text-xs text-muted-foreground flex-shrink-0">
-                              ({isFem ? (lang === "ar" ? "أنثى" : "Female") : (lang === "ar" ? "ذكر" : "Male")})
-                            </span>
-                            <span className="text-xs text-muted-foreground ms-auto">{t.voices[v].style}</span>
-                            {isPop && (
-                              <span className="text-[10px] font-bold text-primary bg-primary/10 px-1.5 py-0.5 rounded-full flex-shrink-0">
-                                {lang === "ar" ? "الأكثر" : "Popular"}
-                              </span>
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </div>
-              <div className="flex justify-end mb-2">
-                <span className="text-xs text-muted-foreground">
-                  {lang === "ar" ? `${text.length} / ${CHAR_LIMIT} حرف` : `${text.length} / ${CHAR_LIMIT} chars`}
-                </span>
-              </div>
-
-              {/* Text area */}
-              <div className="relative mb-6">
-                <textarea
-                  value={text}
-                  onChange={e => {
-                    const newVal = e.target.value;
-                    if (newVal.length > CHAR_LIMIT) {
-                      setText(newVal.slice(0, CHAR_LIMIT));
-                      setShowUpgrade(true);
-                    } else {
-                      setText(newVal);
-                    }
-                    setAudioUrl(null); 
-                    setStatus("idle"); 
-                  }}
-                  placeholder={lang === "ar" ? "الصق نصك العربي هنا…" : "Paste your Arabic text here…"}
-                  rows={5}
-                  dir="rtl"
-                  disabled={status === "loading" || !!(usage && !usage.allowed)}
-                  className={`w-full bg-background/60 text-foreground border rounded-2xl p-5 resize-none outline-none focus:ring-2 focus:ring-primary/40 text-lg placeholder:text-muted-foreground/50 leading-relaxed transition-all duration-200 disabled:opacity-50 ${text.length >= CHAR_LIMIT ? "border-red-500/60 focus:ring-red-500" : "border-border"}`}
-                />
-
-                {usage && !usage.allowed && (
-                  <button
-                    onClick={() => setShowUpgrade(true)}
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-3 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl px-4 py-3 text-sm font-semibold hover:bg-red-500/15 transition-colors z-10 w-[90%] justify-center backdrop-blur-sm shadow-xl"
-                  >
-                    <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                    <span className="font-cairo">انتهى حد الاستخدام ({(usage.currentUsage ?? 0).toLocaleString()} حرف) — ترقية الخطة الآن</span>
-                  </button>
-                )}
-
-                <div className="absolute bottom-3 end-3 text-xs text-muted-foreground/50">
-                  {text.length} / {CHAR_LIMIT}
-                </div>
-              </div>
-
-              {/* Waveform visualizer */}
-              <div className="flex items-end gap-[3px] h-12 mb-6 justify-center px-2" dir="ltr" aria-hidden>
-                {STATIC_HEIGHTS.slice(0, WAVE_COUNT).map((h, i) => (
-                  <WaveBar key={`${waveTick}-${i}`} height={h} active={status === "playing"} delay={i * 40} />
-                ))}
-              </div>
-
-              {/* Error */}
-              {status === "error" && (
-                <p className="text-center text-sm text-destructive mb-4 px-2">{errorMsg}</p>
-              )}
-
-              {/* Action row */}
-              <div className="flex gap-3" dir="ltr">
-                {/* Main generate / stop button */}
-                {isLoaded && !userId && (
-                  <SignInButton mode="modal">
-                    <button
-                      className={`flex-1 py-4 rounded-2xl font-bold text-base flex items-center justify-center gap-2.5 transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed bg-secondary text-secondary-foreground hover:shadow-[0_0_25px_rgba(32,199,183,0.45)] hover:scale-[1.02]`}
-                    >
-                      <Volume2 className="w-5 h-5" />
-                      {lang === "ar" ? "توليد الصوت (سجل مجاناً)" : "Generate (Sign in Free)"}
-                    </button>
-                  </SignInButton>
-                )}
-
-                {isLoaded && userId && (
-                  <button
-                    onClick={status === "playing" ? stopAudio : handleGenerate}
-                    disabled={status === "loading" || !text.trim() || !!(usage && !usage.allowed)}
-                    className={`flex-1 py-4 rounded-2xl font-bold text-base flex items-center justify-center gap-2.5 transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed ${
-                      status === "playing"
-                        ? "bg-destructive/90 text-white hover:bg-destructive"
-                        : status === "error"
-                        ? "bg-muted text-foreground border border-border hover:border-primary/50"
-                        : "bg-secondary text-secondary-foreground hover:shadow-[0_0_25px_rgba(32,199,183,0.45)] hover:scale-[1.02]"
-                    }`}
-                  >
-                    {status === "loading" && <Loader2 className="w-5 h-5 animate-spin" />}
-                    {status === "playing" && <Square className="w-5 h-5" />}
-                    {(status === "idle" || status === "error") && <Volume2 className="w-5 h-5" />}
-                    {btnLabel}
-                  </button>
-                )}
-
-                {/* Replay */}
-                {audioUrl && status !== "loading" && status !== "playing" && (
-                  <button
-                    onClick={handleReplay}
-                    title={lang === "ar" ? "إعادة التشغيل" : "Replay"}
-                    className="px-5 py-4 rounded-2xl border border-border bg-muted/50 text-foreground hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-200"
-                  >
-                    <Play className="w-5 h-5" />
-                  </button>
-                )}
-
-                {/* Download */}
-                {audioUrl && (
-                  <button
-                    onClick={handleDownload}
-                    title={lang === "ar" ? "تحميل MP3" : "Download MP3"}
-                    className="px-5 py-4 rounded-2xl border border-border bg-muted/50 text-foreground hover:border-secondary/50 hover:bg-secondary/5 hover:text-secondary transition-all duration-200"
-                  >
-                    <Download className="w-5 h-5" />
-                  </button>
-                )}
-              </div>
-
-              {/* Footer hint */}
-              <p className="text-center text-sm text-muted-foreground/60 mt-4">
-                {lang === "ar"
-                  ? "✦ 500 حرف مجاناً · لا تسجيل مطلوب · جودة استوديو"
-                  : "✦ 500 characters free · No sign-up needed · Studio quality"}
-              </p>
-            </div>
-          </div>
+          {/* Functional Voice Box */}
+          <Suspense fallback={<div className="h-64 flex items-center justify-center"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>}>
+            <VoiceGenerator lang={lang} />
+          </Suspense>
         </section>
 
         {/* ── 2. Trust Strip ─────────────────────────────────────── */}

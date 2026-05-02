@@ -8,6 +8,7 @@ interface UpgradeModalProps {
   onClose: () => void;
   usedChars?: number;
   limitChars?: number;
+  lang?: "en" | "ar";
 }
 
 const PLANS = [
@@ -22,6 +23,7 @@ const PLANS = [
     icon: <Zap className="w-4 h-4" />,
     color: "border-white/10 hover:border-[#D6B25E]/50",
     badge: null,
+    badgeAr: null,
     priceId: "price_starter",
   },
   {
@@ -34,7 +36,8 @@ const PLANS = [
     labelAr: "المحترف",
     icon: <Crown className="w-4 h-4" />,
     color: "border-[#7C5CFF]/60 shadow-[0_0_30px_rgba(124,92,255,0.2)]",
-    badge: "الأكثر شعبية",
+    badge: "Most Popular",
+    badgeAr: "الأكثر شعبية",
     priceId: "price_pro",
   },
   {
@@ -48,6 +51,7 @@ const PLANS = [
     icon: <Sparkles className="w-4 h-4" />,
     color: "border-white/10 hover:border-[#20C7B7]/50",
     badge: null,
+    badgeAr: null,
     priceId: "price_business",
   },
   {
@@ -60,16 +64,18 @@ const PLANS = [
     labelAr: "المؤسسات",
     icon: <TrendingUp className="w-4 h-4" />,
     color: "border-white/10 hover:border-[#20C7B7]/50",
-    badge: "الأوفر",
+    badge: "Best Value",
+    badgeAr: "الأوفر",
     priceId: "price_enterprise",
   },
 ] as const;
 
-export function UpgradeModal({ open, onClose, usedChars = 0, limitChars = 0 }: UpgradeModalProps) {
+export function UpgradeModal({ open, onClose, usedChars = 0, limitChars = 0, lang = "ar" }: UpgradeModalProps) {
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
   if (!open) return null;
 
+  const isAr = lang === "ar";
   const pct   = limitChars > 0 ? Math.min((usedChars / limitChars) * 100, 100) : 100;
   const words  = Math.round(usedChars / 5);
 
@@ -103,7 +109,7 @@ export function UpgradeModal({ open, onClose, usedChars = 0, limitChars = 0 }: U
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
 
       {/* Modal */}
-      <div className="relative w-full max-w-3xl bg-[#0B1020] border border-white/10 rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200" dir="ltr">
+      <div className="relative w-full max-w-3xl bg-[#0B1020] border border-white/10 rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200" dir={isAr ? "rtl" : "ltr"}>
         
         {/* Purple glow top */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-32 bg-[#7C5CFF]/20 blur-3xl rounded-full pointer-events-none" />
@@ -112,30 +118,32 @@ export function UpgradeModal({ open, onClose, usedChars = 0, limitChars = 0 }: U
         <div className="relative px-8 pt-8 pb-6 text-center">
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all"
+            className={`absolute top-5 ${isAr ? 'left-5' : 'right-5'} w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all`}
           >
             <X className="w-4 h-4" />
           </button>
 
           <div className="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
-            انتهى حد الاستخدام المجاني
+            {isAr ? "انتهى حد الاستخدام المجاني" : "Free Usage Limit Reached"}
           </div>
 
           <h2 className="text-2xl font-bold text-white mb-2 font-cairo">
-            ترقية للاستمرار في التوليد
+            {isAr ? "ترقية للاستمرار في التوليد" : "Upgrade to Continue Generating"}
           </h2>
           <p className="text-gray-400 text-sm max-w-md mx-auto">
-            لقد وصلت إلى الحد المجاني. اختر خطة للحصول على آلاف الحروف الإضافية.
+            {isAr ? "لقد وصلت إلى الحد المجاني. اختر خطة للحصول على آلاف الحروف الإضافية." : "You've reached the free limit. Choose a plan to unlock thousands of extra characters."}
           </p>
 
           {/* Usage bar */}
           {limitChars > 0 && (
-            <div className="mt-5 bg-white/5 rounded-2xl p-4 text-left border border-white/5">
+            <div className="mt-5 bg-white/5 rounded-2xl p-4 text-left border border-white/5" dir="ltr">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-xs text-gray-400 font-mono">الاستخدام الحالي</span>
+                <span className="text-xs text-gray-400 font-mono">
+                  {isAr ? "الاستخدام الحالي" : "Current Usage"}
+                </span>
                 <span className="text-xs font-bold text-white font-mono">
-                  {usedChars.toLocaleString()} / {limitChars.toLocaleString()} حرف
+                  {usedChars.toLocaleString()} / {limitChars.toLocaleString()} {isAr ? "حرف" : "chars"}
                 </span>
               </div>
               <div className="h-2 bg-white/10 rounded-full overflow-hidden">
@@ -145,11 +153,11 @@ export function UpgradeModal({ open, onClose, usedChars = 0, limitChars = 0 }: U
                 />
               </div>
               <div className="mt-2 flex gap-4 text-[11px] text-gray-500">
-                <span>{usedChars.toLocaleString()} حرف</span>
+                <span>{usedChars.toLocaleString()} {isAr ? "حرف" : "chars"}</span>
                 <span>·</span>
-                <span>~{words.toLocaleString()} كلمة</span>
+                <span>~{words.toLocaleString()} {isAr ? "كلمة" : "words"}</span>
                 <span>·</span>
-                <span className="text-red-400 font-semibold">الحد المجاني ممتلئ</span>
+                <span className="text-red-400 font-semibold">{isAr ? "الحد المجاني ممتلئ" : "Limit Exceeded"}</span>
               </div>
             </div>
           )}
@@ -163,13 +171,13 @@ export function UpgradeModal({ open, onClose, usedChars = 0, limitChars = 0 }: U
               className={`relative flex flex-col rounded-2xl border bg-white/5 p-4 transition-all duration-200 cursor-pointer group ${plan.color}`}
               onClick={() => handleUpgrade(plan.id)}
             >
-              {plan.badge && (
-                <div className={`absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] font-bold px-2.5 py-0.5 rounded-full whitespace-nowrap ${
+              {(isAr ? plan.badgeAr : plan.badge) && (
+                <div className={`absolute -top-3 ${isAr ? 'right-1/2 translate-x-1/2' : 'left-1/2 -translate-x-1/2'} text-[10px] font-bold px-2.5 py-0.5 rounded-full whitespace-nowrap ${
                   plan.id === "pro"
                     ? "bg-[#7C5CFF] text-white"
                     : "bg-[#20C7B7]/20 text-[#20C7B7] border border-[#20C7B7]/30"
                 }`}>
-                  {plan.badge}
+                  {isAr ? plan.badgeAr : plan.badge}
                 </div>
               )}
 
@@ -180,15 +188,15 @@ export function UpgradeModal({ open, onClose, usedChars = 0, limitChars = 0 }: U
               </div>
 
               <div className="text-[10px] text-gray-500 uppercase tracking-widest font-semibold mb-1">
-                {plan.chars} حرف
+                {plan.chars} {isAr ? "حرف" : "chars"}
               </div>
 
               <div className={`text-2xl font-bold mb-0.5 ${plan.id === "pro" ? "text-[#7C5CFF]" : "text-white"}`}>
-                {plan.price}
+                {isAr ? plan.priceAr : plan.price}
               </div>
 
               <div className="text-[11px] text-gray-500 mb-3">
-                {plan.minutes} دقيقة تقريباً
+                {plan.minutes} {isAr ? "دقيقة تقريباً" : "mins approx"}
               </div>
 
               <button
@@ -201,8 +209,8 @@ export function UpgradeModal({ open, onClose, usedChars = 0, limitChars = 0 }: U
                 }`}
               >
                 {loadingPlan === plan.id
-                  ? <><Loader2 className="w-3 h-3 animate-spin" /> جاري التحميل...</>
-                  : <>اشترك الآن</>}
+                  ? <><Loader2 className="w-3 h-3 animate-spin" /> {isAr ? "جاري التحميل..." : "Loading..."}</>
+                  : <>{isAr ? "اشترك الآن" : "Subscribe Now"}</>}
               </button>
             </div>
           ))}
@@ -211,7 +219,7 @@ export function UpgradeModal({ open, onClose, usedChars = 0, limitChars = 0 }: U
         {/* Footer note */}
         <div className="px-8 pb-8 pt-2 text-center">
           <p className="text-[11px] text-gray-600">
-            الخطط تُجدَّد شهرياً · إلغاء في أي وقت · دفع آمن عبر Stripe
+            {isAr ? "الخطط تُجدَّد شهرياً · إلغاء في أي وقت · دفع آمن عبر Stripe" : "Plans renew monthly · Cancel anytime · Secure checkout via Stripe"}
           </p>
         </div>
       </div>

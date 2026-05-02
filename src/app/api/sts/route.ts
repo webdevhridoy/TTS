@@ -4,12 +4,14 @@ import fs from "fs";
 import path from "path";
 import { auth } from "@clerk/nextjs/server";
 
+import { getAnonymousId } from "@/lib/get-ip";
+
 // Audio-to-Audio (Speech-to-Speech) API Route
 export async function POST(req: Request) {
   try {
-    const { userId } = await auth();
+    let { userId } = await auth();
     if (!userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      userId = await getAnonymousId();
     }
 
     const formData = await req.formData();

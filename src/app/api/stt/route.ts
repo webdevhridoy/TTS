@@ -1,8 +1,15 @@
 import { NextResponse } from "next/server";
 import { env } from "@/lib/env";
+import { getAnonymousId } from "@/lib/get-ip";
+import { auth } from "@clerk/nextjs/server";
 
 export async function POST(req: Request) {
   try {
+    let { userId } = await auth();
+    if (!userId) {
+      userId = await getAnonymousId();
+    }
+
     const formData = await req.formData();
     const file = formData.get("audio") as Blob | null;
 

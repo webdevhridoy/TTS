@@ -7,13 +7,15 @@ import { generateAudioBuffer } from "@/lib/tts/index";
 import fs from "fs";
 import path from "path";
 
+import { getAnonymousId } from "@/lib/get-ip";
+
 // Removed Upstash and BullMQ for purely local synchronous generation workflow
 
 export async function POST(req: Request) {
   try {
-    const { userId } = await auth();
+    let { userId } = await auth();
     if (!userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      userId = await getAnonymousId();
     }
 
     const body = await req.json();

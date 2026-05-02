@@ -3,10 +3,13 @@
 import { prisma } from "@/lib/prisma";
 import { checkUsageLimit } from "@/lib/usage";
 import { auth } from "@clerk/nextjs/server";
+import { getAnonymousId } from "@/lib/get-ip";
 
 export async function getUserGenerations(limit: number = 10) {
-  const { userId } = await auth();
-  if (!userId) return [];
+  let { userId } = await auth();
+  if (!userId) {
+    userId = await getAnonymousId();
+  }
 
   const generations = await prisma.audioGeneration.findMany({
     where: { userId },
@@ -29,7 +32,9 @@ export async function getUserGenerations(limit: number = 10) {
 }
 
 export async function getUserUsageStats() {
-  const { userId } = await auth();
-  if (!userId) return null;
+  let { userId } = await auth();
+  if (!userId) {
+    userId = await getAnonymousId();
+  }
   return await checkUsageLimit(userId, 0);
 }
